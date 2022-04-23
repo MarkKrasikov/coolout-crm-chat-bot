@@ -18,13 +18,11 @@ var listCoffee = [
 var listHotDrinks = [
     { name: 'Чаек', price: 4 },
     { name: 'Какавчик', price: 5 }
-
 ];
 
 var listColdDrinks = [
     { name: 'Коктейльчик', price: 5.5 },
     { name: 'Кола', price: 5 }
-
 ];
 
 var listDeserts = [
@@ -61,6 +59,7 @@ var newOrder = [
     { name: 'Батончики' }
 ];
 
+var finalReceipt = [];
 
 bot.on('message', (msg) => {
     console.log(msg);
@@ -68,6 +67,7 @@ bot.on('message', (msg) => {
 
     var title = "";
     var buttons = [];
+    var listName;
 
     switch (msg.text) {
         case '/start':
@@ -108,6 +108,7 @@ bot.on('message', (msg) => {
         case 'Кофе':
             category = 4;
             title = 'Кофе';
+            listName = listCoffee;
             for (var i = 0; i < listCoffee.length; i++) {
                 buttons.push(listCoffee[i].name + ' ' + listCoffee[i].price);
             }
@@ -155,25 +156,32 @@ bot.on('message', (msg) => {
             }
             break;
         default:
-            var categoryNumber = {};
+            var categoryElement = {};
             if (category === 4) {
-                categoryNumber = listCoffee.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = listCoffee.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 5) {
-                categoryNumber = listHotDrinks.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = listHotDrinks.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 6) {
-                categoryNumber = listColdDrinks.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = listColdDrinks.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 7) {
-                categoryNumber = listDeserts.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = listDeserts.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 8) {
-                categoryNumber = listFood.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = listFood.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 9) {
-                categoryNumber = listBakery.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = listBakery.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 10) {
-                categoryNumber = listBars.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = listBars.find(e => (e.name + " " + e.price) === msg.text);
             }
-            console.log("В чек добавляю" + categoryNumber.name + " с ценой " + categoryNumber.price);
+            if (categoryElement !== undefined) {
+                console.log("В чек добавляю " + categoryElement.name + " с ценой " + categoryElement.price);
+                finalReceipt.push(categoryElement);
+                console.log(finalReceipt);
+                title = "Добавляю в чек\n" + finalReceipt.name;
+            }
             break;
+
     }
+
     send(chatId, title, buttons);
 });
 
