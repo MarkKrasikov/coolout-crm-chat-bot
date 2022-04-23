@@ -190,10 +190,19 @@ function send(chatId, title, buttons) {
     if (title !== "") {
         bot.sendMessage(chatId, title, {
             reply_markup: {
-                keyboard: [buttons]
+                keyboard: sliceIntoChunks(buttons, 3)
             }
         });
     }
+}
+
+function sliceIntoChunks(arr, chunkSize) {
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        const chunk = arr.slice(i, i + chunkSize);
+        res.push(chunk);
+    }
+    return res;
 }
 
 //TODO
