@@ -21,7 +21,7 @@ var openShift = [
 ];
 
 var backOrderMenu = [
-    { name: 'В меню заказа' },
+    { name: 'В меню' },
     { name: 'Отмена' }
 ];
 
@@ -87,11 +87,9 @@ var listBars = [
 
 ];
 
-
 // Списки отвечающие за хранение выбранных позиций
 var finalReceipt = [];
-var statistic = [];
-
+var totalReceipts = [];
 
 bot.on('message', (msg) => {
     console.log(msg);
@@ -123,7 +121,6 @@ bot.on('message', (msg) => {
                 buttons.push(open[i].name);
             }
             break;
-
         case 'Закрыть смену':
         case 'Да':
         case 'Нет':
@@ -135,21 +132,22 @@ bot.on('message', (msg) => {
             }
 
             if (msg.text === 'Да') {
-                title = 'Смена закрыта \nСтатистика за смену\n';
-
-                var sum = 0;
-                for (var i = 0; i < statistic.length; i++) {
-                    title += statistic[i].name + " - " + statistic[i].price + "\n";
-                    sum += statistic[i].price;
+                isShiftClosed = true;
+                title = 'Смена закрыта.\nСтатистика за смену:';
+                let generalSum = 0;
+                for (let i = 0; i < totalReceipts.length; i++) {
+                    title += "\n\nЧек №" + (i + 1) + ":\n";
+                    let receiptSum = 0;
+                    for (let j = 0; j < totalReceipts[i].length; j++) {
+                        title += totalReceipts[i][j].name + " - " + totalReceipts[i][j].price + "\n";
+                        receiptSum += totalReceipts[i][j].price;
+                    }
+                    title += "Итог по чеку: " + receiptSum;
+                    generalSum += receiptSum;
                 }
-                title += "\nИтог за смену: " + sum;
-
-                for (var i = 0; i < openShift.length; i++) {
-                    buttons.push(openShift[i].name);
-                }
-
-                statistic = [];
-                isShiftClosed = true
+                title += "\n\nИтог за смену: " + generalSum;
+                isShiftClosed = true;
+                buttons.push("/start");
             }
 
             if (msg.text === 'Нет') {
@@ -160,31 +158,8 @@ bot.on('message', (msg) => {
                 }
             }
             break;
-
-        case 'Посмотреть статистику':
-            title = 'Статистика за смену'
-
-            var sum = 0;
-            for (var i = 0; i < statistic.length; i++) {
-                title += statistic[i].name + " - " + statistic[i].price + "\n";
-                sum += statistic[i].price;
-            }
-            title += "\nИтог за смену: " + sum;
-            break;
-
-        case 'Закрыть чек':
-            title = 'Чек закрыт'
-            statistic.push.apply(statistic, finalReceipt);
-            finalReceipt = [];
-
-            for (var i = 0; i < open.length; i++) {
-                buttons.push(open[i].name);
-            }
-            break;
-
         case 'Новый заказ':
-        case 'В меню заказа':
-
+        case 'В меню':
             if (msg.text === "Новый заказ") {
                 finalReceipt = [];
             }
@@ -213,7 +188,6 @@ bot.on('message', (msg) => {
         case 'Кофе':
             category = 4;
             title = 'Кофе';
-            listName = listCoffee;
 
             for (var i = 0; i < listCoffee.length; i++) {
                 buttons.push(listCoffee[i].name + ' ' + listCoffee[i].price);
@@ -295,9 +269,27 @@ bot.on('message', (msg) => {
                 buttons.push(backOrderMenu[i].name);
             }
             break;
+        case 'Посмотреть статистику':
+            title = 'Статистика за смену:'
+            let generalSum = 0;
+            for (let i = 0; i < totalReceipts.length; i++) {
+                title += "\n\nЧек №" + (i + 1) + ":\n";
+                let receiptSum = 0;
+                for (let j = 0; j < totalReceipts[i].length; j++) {
+                    title += totalReceipts[i][j].name + " - " + totalReceipts[i][j].price + "\n";
+                    receiptSum += totalReceipts[i][j].price;
+                }
+                title += "Итог по чеку: " + receiptSum;
+                generalSum += receiptSum;
+            }
+            title += "\n\nИтог за смену: " + generalSum;
+            break;
         case 'Закрыть чек':
-            for (var i = 0; i < finalReceipt.length; i++) {
-                statistic.push(finalReceipt[i].name + ' ' + finalReceipt[i].price);
+            totalReceipts.push(finalReceipt);
+            finalReceipt = [];
+            title = "Новый заказ";
+            for (let i = 0; i < open.length; i++) {
+                buttons.push(open[i].name);
             }
             break;
         default:
@@ -320,35 +312,24 @@ bot.on('message', (msg) => {
 
             if (categoryElement !== undefined) {
                 console.log("В чек добавляю " + categoryElement.name + " с ценой " + categoryElement.price);
-
                 finalReceipt.push(categoryElement);
-                console.log(finalReceipt);
 
                 title = "Итоговый чек:\n";
-                var sum = 0;
-                for (var i = 0; i < finalReceipt.length; i++) {
+                let finalSum = 0;
+                for (let i = 0; i < finalReceipt.length; i++) {
                     title += finalReceipt[i].name + " - " + finalReceipt[i].price + "\n";
-                    sum += finalReceipt[i].price;
+                    finalSum += finalReceipt[i].price;
                 }
-                title += "\nИтог: " + sum;
+                title += "\nИтог: " + finalSum;
             }
-
-            if (msg.text === 'Закрыть смену') {
-                isShiftClosed = true;
-                console.log(isShiftClosed);
-            }
-
             break;
-
     }
-
     send(chatId, title, buttons);
 });
 
 
 // Не до конца понимаю как работают эти функции
 function send(chatId, title, buttons) {
-    console.log(buttons);
     if (title !== "") {
         bot.sendMessage(chatId, title, {
             reply_markup: {
