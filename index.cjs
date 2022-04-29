@@ -1,27 +1,16 @@
-// node index.js
+var menu = require('./menu.cjs');
+var botButtons = require('./buttons.cjs');
 
 const TelegramBot = require('node-telegram-bot-api'); // подключаем node-telegram-bot-api
-
 const token = '5359120855:AAEhADdpsIOoOV18tj4sNU4q3O6cZi45wbE'; // тут токен кторый мы получили от botFather
-
-// включаем самого бота
 const bot = new TelegramBot(token, { polling: true });
 
 var isShiftClosed = true;
-var category; // Отвечает за номер выбранной категории
-
-
-const { testFunc } = require('./menu.cjs');
-
-//Списки отвечающие за пункты меню
-testFunc();
-
-// Списки отвечающие за хранение выбранных позиций
+var category;
 var finalReceipt = [];
 var totalReceipts = [];
 
 bot.on('message', (msg) => {
-    console.log(msg);
     const chatId = msg.chat.id;
 
     var title = "";
@@ -31,13 +20,8 @@ bot.on('message', (msg) => {
         case '/start':
             category = 1;
             if (isShiftClosed) {
-                bot.sendMessage(chatId, 'Открываю смену?', {
-                    reply_markup: {
-                        keyboard: [
-                            ['Открыть']
-                        ]
-                    }
-                });
+                title = 'Открываю смену?';
+                buttons.push('Открыть');
             }
             break;
         case 'Открыть':
@@ -45,18 +29,15 @@ bot.on('message', (msg) => {
             category = 2;
             title = 'Открыть';
             isShiftClosed = false;
-
-            for (var i = 0; i < open.length; i++) {
-                buttons.push(open[i].name);
-            }
+            showOpenButtons(buttons);
             break;
         case 'Закрыть смену':
         case 'Да':
         case 'Нет':
             if (msg.text === 'Закрыть смену') {
                 title = 'Закрыть смену?'
-                for (var i = 0; i < yesNo.length; i++) {
-                    buttons.push(yesNo[i].name);
+                for (var i = 0; i < botButtons.yesno.length; i++) {
+                    buttons.push(botButtons.yesno[i]);
                 }
             }
 
@@ -81,10 +62,7 @@ bot.on('message', (msg) => {
 
             if (msg.text === 'Нет') {
                 title = 'Отмена \nСмена не закрыта';
-
-                for (var i = 0; i < open.length; i++) {
-                    buttons.push(open[i].name);
-                }
+                showOpenButtons(buttons);
             }
             break;
         case 'Новый заказ':
@@ -118,13 +96,11 @@ bot.on('message', (msg) => {
             category = 4;
             title = 'Кофе';
 
-            for (var i = 0; i < listCoffee.length; i++) {
-                buttons.push(listCoffee[i].name + ' ' + listCoffee[i].price);
+            for (var i = 0; i < menu.listCoffee.length; i++) {
+                buttons.push(menu.listCoffee[i].name + ' ' + menu.listCoffee[i].price);
             }
 
-            for (var i = 0; i < backOrderMenu.length; i++) {
-                buttons.push(backOrderMenu[i].name);
-            }
+            showBackButtons(buttons);
             break;
         case 'Горячие напитки':
             category = 5;
@@ -134,9 +110,7 @@ bot.on('message', (msg) => {
                 buttons.push(listHotDrinks[i].name + ' ' + listHotDrinks[i].price);
             }
 
-            for (var i = 0; i < backOrderMenu.length; i++) {
-                buttons.push(backOrderMenu[i].name);
-            }
+            showBackButtons(buttons);
             break;
         case 'Холодные напитки':
             category = 6;
@@ -146,9 +120,7 @@ bot.on('message', (msg) => {
                 buttons.push(listColdDrinks[i].name + ' ' + listColdDrinks[i].price);
             }
 
-            for (var i = 0; i < backOrderMenu.length; i++) {
-                buttons.push(backOrderMenu[i].name);
-            }
+            showBackButtons(buttons);
             break;
         case 'Десерты':
             category = 7;
@@ -158,9 +130,7 @@ bot.on('message', (msg) => {
                 buttons.push(listDeserts[i].name + ' ' + listDeserts[i].price);
             }
 
-            for (var i = 0; i < backOrderMenu.length; i++) {
-                buttons.push(backOrderMenu[i].name);
-            }
+            showBackButtons(buttons);
             break;
         case 'Еда':
             category = 8;
@@ -170,9 +140,7 @@ bot.on('message', (msg) => {
                 buttons.push(listFood[i].name + ' ' + listFood[i].price);
             }
 
-            for (var i = 0; i < backOrderMenu.length; i++) {
-                buttons.push(backOrderMenu[i].name);
-            }
+            showBackButtons(buttons);
             break;
         case 'Выпечка':
             category = 9
@@ -182,9 +150,7 @@ bot.on('message', (msg) => {
                 buttons.push(listBakery[i].name + ' ' + listBakery[i].price);
             }
 
-            for (var i = 0; i < backOrderMenu.length; i++) {
-                buttons.push(backOrderMenu[i].name);
-            }
+            showBackButtons(buttons);
             break;
         case 'Батончики':
             category = 10;
@@ -194,9 +160,7 @@ bot.on('message', (msg) => {
                 buttons.push(listBars[i].name + ' ' + listBars[i].price);
             }
 
-            for (var i = 0; i < backOrderMenu.length; i++) {
-                buttons.push(backOrderMenu[i].name);
-            }
+            showBackButtons(buttons);
             break;
         case 'Посмотреть статистику':
             title = 'Статистика за смену:'
@@ -256,8 +220,6 @@ bot.on('message', (msg) => {
     send(chatId, title, buttons);
 });
 
-
-// Не до конца понимаю как работают эти функции
 function send(chatId, title, buttons) {
     if (title !== "") {
         bot.sendMessage(chatId, title, {
@@ -277,10 +239,14 @@ function sliceIntoChunks(arr, chunkSize) {
     return res;
 }
 
+function showOpenButtons(buttons) {
+    for (var i = 0; i < botButtons.open.length; i++) {
+        buttons.push(botButtons.open[i]);
+    }
+}
 
-//TODO
-//1.1 Не могу разобраться как вложить массив в массив, для более коректного отображения статистики.
-//1.2 Не знаю как реализовать отправку чеков и статистики другому пользователю.
-
-//2. Реализовал кнопку отмена, которая удаляет последний добавленный элемент в список.
-//3. Реализовал закрытие смены и просмотр статистики.
+function showBackButtons(buttons) {
+    for (var i = 0; i < botButtons.backOrderMenu.length; i++) {
+        buttons.push(botButtons.backOrderMenu[i]);
+    }
+}
