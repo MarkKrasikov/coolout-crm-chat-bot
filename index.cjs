@@ -73,8 +73,8 @@ bot.on('message', (msg) => {
 
             category = 3;
             title = 'Новый заказ';
-            for (var i = 0; i < newOrder.length; i++) {
-                buttons.push(newOrder[i].name);
+            for (var i = 0; i < botButtons.newOrder.length; i++) {
+                buttons.push(botButtons.newOrder[i]);
             }
             break;
         case 'Отмена':
@@ -106,8 +106,8 @@ bot.on('message', (msg) => {
             category = 5;
             title = 'Горячие напитки';
 
-            for (var i = 0; i < listHotDrinks.length; i++) {
-                buttons.push(listHotDrinks[i].name + ' ' + listHotDrinks[i].price);
+            for (var i = 0; i < menu.listHotDrinks.length; i++) {
+                buttons.push(menu.listHotDrinks[i].name + ' ' + menu.listHotDrinks[i].price);
             }
 
             showBackButtons(buttons);
@@ -116,8 +116,8 @@ bot.on('message', (msg) => {
             category = 6;
             title = 'Холодные напитки';
 
-            for (var i = 0; i < listColdDrinks.length; i++) {
-                buttons.push(listColdDrinks[i].name + ' ' + listColdDrinks[i].price);
+            for (var i = 0; i < menu.listColdDrinks.length; i++) {
+                buttons.push(menu.listColdDrinks[i].name + ' ' + menu.listColdDrinks[i].price);
             }
 
             showBackButtons(buttons);
@@ -126,8 +126,8 @@ bot.on('message', (msg) => {
             category = 7;
             title = 'Десерты';
 
-            for (var i = 0; i < listDeserts.length; i++) {
-                buttons.push(listDeserts[i].name + ' ' + listDeserts[i].price);
+            for (var i = 0; i < menu.listDeserts.length; i++) {
+                buttons.push(menu.listDeserts[i].name + ' ' + menu.listDeserts[i].price);
             }
 
             showBackButtons(buttons);
@@ -136,8 +136,8 @@ bot.on('message', (msg) => {
             category = 8;
             title = 'Еда';
 
-            for (var i = 0; i < listFood.length; i++) {
-                buttons.push(listFood[i].name + ' ' + listFood[i].price);
+            for (var i = 0; i < menu.listFood.length; i++) {
+                buttons.push(menu.listFood[i].name + ' ' + menu.listFood[i].price);
             }
 
             showBackButtons(buttons);
@@ -146,8 +146,8 @@ bot.on('message', (msg) => {
             category = 9
             title = 'Выпечка';
 
-            for (var i = 0; i < listBakery.length; i++) {
-                buttons.push(listBakery[i].name + ' ' + listBakery[i].price);
+            for (var i = 0; i < menu.listBakery.length; i++) {
+                buttons.push(menu.listBakery[i].name + ' ' + menu.listBakery[i].price);
             }
 
             showBackButtons(buttons);
@@ -156,8 +156,8 @@ bot.on('message', (msg) => {
             category = 10;
             title = 'Батончики';
 
-            for (var i = 0; i < listBars.length; i++) {
-                buttons.push(listBars[i].name + ' ' + listBars[i].price);
+            for (var i = 0; i < menu.listBars.length; i++) {
+                buttons.push(menu.listBars[i].name + ' ' + menu.listBars[i].price);
             }
 
             showBackButtons(buttons);
@@ -181,26 +181,26 @@ bot.on('message', (msg) => {
             totalReceipts.push(finalReceipt);
             finalReceipt = [];
             title = "Новый заказ";
-            for (let i = 0; i < open.length; i++) {
-                buttons.push(open[i].name);
+            for (let i = 0; i < botButtons.open.length; i++) {
+                buttons.push(botButtons.open[i]);
             }
             break;
         default:
             var categoryElement = {};
             if (category === 4) {
-                categoryElement = listCoffee.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = menu.listCoffee.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 5) {
-                categoryElement = listHotDrinks.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = menu.listHotDrinks.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 6) {
-                categoryElement = listColdDrinks.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = menu.listColdDrinks.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 7) {
-                categoryElement = listDeserts.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = menu.listDeserts.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 8) {
-                categoryElement = listFood.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = menu.listFood.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 9) {
-                categoryElement = listBakery.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = menu.listBakery.find(e => (e.name + " " + e.price) === msg.text);
             } else if (category === 10) {
-                categoryElement = listBars.find(e => (e.name + " " + e.price) === msg.text);
+                categoryElement = menu.listBars.find(e => (e.name + " " + e.price) === msg.text);
             }
 
             if (categoryElement !== undefined) {
