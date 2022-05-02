@@ -31,7 +31,7 @@ bot.on('message', (msg) => {
                 showOpenButtons(buttons);
             } else {
                 category = 2;
-                title = 'Смена открыта';
+                title = 'Смена открыта: ' +  new Date().toLocaleString();
                 isShiftClosed = false;
                 showOpenButtons(buttons);
             }
@@ -49,7 +49,7 @@ bot.on('message', (msg) => {
 
             if (msg.text === 'Да') {
                 isShiftClosed = true;
-                title = 'Смена закрыта.\nСтатистика за смену:';
+                title = 'Смена закрыта: \n' + new Date().toLocaleString() + '\nСтатистика за смену:';
                 let generalSum = 0;
                 for (let i = 0; i < totalReceipts.length; i++) {
                     title += "\n\nЧек №" + (i + 1) + ":\n";
@@ -64,6 +64,8 @@ bot.on('message', (msg) => {
                 title += "\n\nИтог за смену: " + generalSum;
                 isShiftClosed = true;
                 buttons.push("/start");
+
+                bot.sendMessage(521483514, title); // send reports to Maksim
             }
 
             if (msg.text === 'Нет') {
@@ -216,7 +218,6 @@ bot.on('message', (msg) => {
             }
 
             if (categoryElement !== undefined) {
-                console.log("В чек добавляю " + categoryElement.name + " с ценой " + categoryElement.price);
                 finalReceipt.push(categoryElement);
 
                 title = "Итоговый чек:\n";
