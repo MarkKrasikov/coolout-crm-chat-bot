@@ -59,7 +59,7 @@ exports.listDeserts = [
     { name: 'Захер', price: 4.5 },
     { name: 'Картошка', price: 2 },
     { name: 'Красный бархат', price: 5 },
-    { name: 'Мафин', price: 3 },
+    { name: 'Маффин', price: 3 },
     { name: 'Медовик', price: 4.5 },
     { name: 'Молочная девочка', price: 3.5 },
     { name: 'Наполеон', price: 5 },

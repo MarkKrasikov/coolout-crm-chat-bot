@@ -26,10 +26,16 @@ bot.on('message', (msg) => {
             break;
         case 'Открыть':
         case 'В главное меню':
-            category = 2;
-            title = 'Открыть';
-            isShiftClosed = false;
-            showOpenButtons(buttons);
+            if (msg.text === 'В главное меню') {
+                title = 'Текущий чек очищен';
+                showOpenButtons(buttons);
+            } else {
+                category = 2;
+                title = 'Смена открыта';
+                isShiftClosed = false;
+                showOpenButtons(buttons);
+            }
+
             break;
         case 'Закрыть смену':
         case 'Да':
@@ -178,12 +184,18 @@ bot.on('message', (msg) => {
             title += "\n\nИтог за смену: " + generalSum;
             break;
         case 'Закрыть чек':
-            totalReceipts.push(finalReceipt);
-            finalReceipt = [];
-            title = "Новый заказ";
-            for (let i = 0; i < botButtons.open.length; i++) {
-                buttons.push(botButtons.open[i]);
+            if (finalReceipt.length === 0) {
+                title = 'Нельзя закрыть пустой чек!'
+
+            } else {
+                totalReceipts.push(finalReceipt);
+                finalReceipt = [];
+                title = "Новый заказ";
+                for (let i = 0; i < botButtons.open.length; i++) {
+                    buttons.push(botButtons.open[i]);
+                }
             }
+
             break;
         default:
             var categoryElement = {};
