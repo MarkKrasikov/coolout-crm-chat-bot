@@ -1,8 +1,11 @@
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
+const TOKEN_TEST = '5359120855:AAEhADdpsIOoOV18tj4sNU4q3O6cZi45wbE';
+const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
+
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot('5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk', { polling: true });
+const bot = new TelegramBot(TOKEN_AERO, { polling: true });
 
 var isShiftClosed = true;
 var category;
