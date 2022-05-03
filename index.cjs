@@ -3,6 +3,7 @@ var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
 const TelegramBot = require('node-telegram-bot-api');
+console.log(process.env.TOKEN);
 const bot = new TelegramBot(process.env.TOKEN, { polling: true });
 
 var isShiftClosed = true;
