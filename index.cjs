@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
