@@ -1,9 +1,9 @@
+require('dotenv').config();
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
-const TelegramBot = require('node-telegram-bot-api'); // подключаем node-telegram-bot-api
-const token = '5359120855:AAEhADdpsIOoOV18tj4sNU4q3O6cZi45wbE'; // тут токен кторый мы получили от botFather
-const bot = new TelegramBot(token, { polling: true });
+const TelegramBot = require('node-telegram-bot-api');
+const bot = new TelegramBot(process.env.TOKEN, { polling: true });
 
 var isShiftClosed = true;
 var category;
