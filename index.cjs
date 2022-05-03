@@ -7,11 +7,11 @@ const TOKEN_TEST = '5359120855:AAEhADdpsIOoOV18tj4sNU4q3O6cZi45wbE';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(TOKEN_AERO, { polling: true });
+const bot = new TelegramBot(TOKEN_TEST, { polling: true });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
+    console.log(`Our app is running on port ${PORT}`);
 });
 
 var isShiftClosed = true;
@@ -40,7 +40,7 @@ bot.on('message', (msg) => {
                 showOpenButtons(buttons);
             } else {
                 category = 2;
-                title = 'Смена открыта: ' +  new Date().toLocaleString();
+                title = 'Смена открыта: ' + new Date().toLocaleString();
                 isShiftClosed = false;
                 showOpenButtons(buttons);
             }
@@ -86,10 +86,12 @@ bot.on('message', (msg) => {
         case 'В меню':
             if (msg.text === "Новый заказ") {
                 finalReceipt = [];
+                title = 'Новый заказ';
+            } else {
+                title = showFinalReceipt(title);
+                category = 3;
             }
 
-            category = 3;
-            title = 'Новый заказ';
             for (var i = 0; i < botButtons.newOrder.length; i++) {
                 buttons.push(botButtons.newOrder[i]);
             }
@@ -243,7 +245,7 @@ bot.on('message', (msg) => {
 });
 
 function send(chatId, title, buttons) {
-    if (title !== "") {
+    if (title !== '') {
         bot.sendMessage(chatId, title, {
             reply_markup: {
                 keyboard: sliceIntoChunks(buttons, 2)
@@ -271,4 +273,16 @@ function showBackButtons(buttons) {
     for (var i = 0; i < botButtons.backOrderMenu.length; i++) {
         buttons.push(botButtons.backOrderMenu[i]);
     }
+}
+
+function showFinalReceipt(title) {
+    title = "Итоговый чек:\n";
+    var sum = 0;
+    for (var i = 0; i < finalReceipt.length; i++) {
+        title += finalReceipt[i].name + " - " + finalReceipt[i].price + "\n";
+        sum += finalReceipt[i].price;
+    }
+    title += "\nИтог: " + sum;
+    console.log(title);
+    return title;
 }
