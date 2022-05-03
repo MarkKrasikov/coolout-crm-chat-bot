@@ -1,10 +1,8 @@
-// require('dotenv').config();
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
 const TelegramBot = require('node-telegram-bot-api');
-console.log(process.env.TOKEN);
-const bot = new TelegramBot(process.env.TOKEN, { polling: true });
+const bot = new TelegramBot('5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk', { polling: true });
 
 var isShiftClosed = true;
 var category;
