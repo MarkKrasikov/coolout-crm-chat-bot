@@ -15,8 +15,8 @@ app.listen(PORT, () => {
     console.log(`Our app is running on port ${PORT}`);
 });
 
-cron.schedule('*/20 * * * *', () => {
-    console.log('Ping at every 20th minute');
+cron.schedule('*/5 * * * *', () => {
+    console.log('Ping at every 5th minute');
 });
 
 var isShiftClosed = true;
