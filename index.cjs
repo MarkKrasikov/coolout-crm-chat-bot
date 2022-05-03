@@ -8,7 +8,7 @@ const TOKEN_TEST = '5359120855:AAEhADdpsIOoOV18tj4sNU4q3O6cZi45wbE';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(TOKEN_TEST, { polling: true });
+const bot = new TelegramBot(TOKEN_AERO, { polling: true });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
