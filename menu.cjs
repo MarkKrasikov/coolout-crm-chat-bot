@@ -1,6 +1,4 @@
 exports.listCoffee = [
-    { name: 'Сироп', price: 0.5 },
-    { name: 'Растительное', price: 2 },
     { name: 'Эспрессо', price: 3.5 },
     { name: 'Американо', price: 4 },
     { name: 'Маленький Капучино', price: 4 },
@@ -15,13 +13,16 @@ exports.listCoffee = [
     { name: 'Горячий бамбл', price: 5 },
     { name: 'Капучино манго-питахайя', price: 4.8 },
     { name: 'Капучино кедр', price: 5.5 },
-    { name: 'Латте Голубика-асаи-лаванда', price: 4.8 },
+    { name: 'Латте голубика-асаи-лаванда', price: 4.8 },
     { name: 'Латте пшено', price: 5 },
     { name: 'Раф сырный', price: 5.5 },
     { name: 'Раф халва', price: 5 },
-    { name: 'Пачка кофе 100г.', price: 10 },
-    { name: 'Пачка кофе 250г.', price: 20 },
-    { name: 'Пачка кофе 500г.', price: 30 },
+    { name: 'Сироп', price: 0.5 },
+    { name: 'Растительное', price: 2 },
+    { name: 'Молочко', price: 0.5 },
+    { name: 'Пачка кофе 100г', price: 10 },
+    { name: 'Пачка кофе 250г', price: 20 },
+    { name: 'Пачка кофе 500г', price: 30 },
     { name: 'Пачка кофе 1кг', price: 50 }
 ];
 
@@ -31,26 +32,28 @@ exports.listHotDrinks = [
     { name: 'Матча зеленая', price: 4.5 },
     { name: 'Матча синяя', price: 4.5 },
     { name: 'Облепиховый отвар', price: 4.5 },
-    { name: 'Чай дынный', price: 4.5 },
     { name: 'Чай классика', price: 3.5 },
-    { name: 'Чай фирменный', price: 4 }
-
+    { name: 'Чай фирменный', price: 4 },
+    { name: 'Чай эксклюзивный', price: 4.5 },
 ];
 
 exports.listColdDrinks = [
     { name: 'Айс Латте', price: 4.5 },
     { name: 'Айс Матча', price: 4.5 },
     { name: 'Бамбл', price: 5 },
-    { name: 'Мазарган', price: 5 },
+    { name: 'Мазагран', price: 5 },
     { name: 'Эспресо тоник', price: 5 },
     { name: 'Малиновый рассвет', price: 4 },
     { name: 'Фруктовая вечеринка', price: 4 },
     { name: 'Ананасовый серфинг', price: 4 },
+    { name: 'Молочный коктейль', price: 3.5 },
+    { name: 'Шоколадный коктейль', price: 3.8 },
+    { name: 'Ананасовый серфинг', price: 4 },
     { name: 'Rich апельсин', price: 2 },
     { name: 'Rich вишня', price: 2 },
     { name: 'Rich яблоко', price: 2 },
+    { name: 'Добрый мультифрукт', price: 2 },
     { name: 'Бонаква', price: 1.5 },
-    { name: 'Сок добрый', price: 2 },
     { name: 'Кола', price: 2 },
     { name: 'Фанта', price: 2 }
 ];
@@ -80,14 +83,20 @@ exports.listDeserts = [
     { name: 'Чизкейк малина', price: 4 },
     { name: 'Шу фисташка', price: 4 },
     { name: 'Шу ягоды', price: 4 },
-    { name: 'Эклер', price: 3.5 },
-    { name: 'Эклер обсыпной со сгущенкой', price: 3.5 },
+    { name: 'Эклер с сырным кремом', price: 3.5 },
+    { name: 'Эклер со сгущенкой', price: 3.5 },
     { name: 'Эклер шоколадный', price: 3.5 }
 ];
 
 exports.listFood = [
-    { name: 'Яишенка', price: 5 },
-    { name: 'Сэндвич', price: 6 },
+    { name: 'Овсянка', price: 3.5 },
+    { name: 'Яишенка', price: 4 },
+    { name: 'Сырники', price: 5 },
+    { name: 'По-американски', price: 5 },
+    { name: 'По-итальянски', price: 5.5 },
+    { name: 'По-камчатски', price: 6 },
+    { name: 'По-французски', price: 6 },
+    { name: 'Сладкий', price:  4.5},
 ];
 
 exports.listBakery = [
@@ -104,12 +113,13 @@ exports.listBakery = [
 
 exports.listBars = [
     { name: 'KIDAY', price: 1.5 },
-    { name: "O'zero вафля", price: 1 },
-    { name: "O'zero шоколад", price: 1.5 },
-    { name: 'Ritter sport', price: 1.5 },
+    { name: 'Nut&Go', price: 1.0 },
+    { name: "O'Zera вафля", price: 1 },
+    { name: "O'Zera шоколадка", price: 1.5 },
     { name: 'Say No', price: 2 },
     { name: 'Зебра', price: 1 },
     { name: 'Крокант', price: 0.5 },
     { name: 'Мачос', price: 1 },
-    { name: 'Предсказание', price: 1 }
+    { name: 'Предсказание', price: 1 },
+    { name: 'Ritter Sport', price: 1.5 },
 ];
