@@ -1,4 +1,5 @@
-var cron = require('node-cron');
+var express = require('express');
+var app = express();
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
@@ -7,9 +8,10 @@ const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(TOKEN_AERO, { polling: true });
+const PORT = process.env.PORT || 3000;
 
-cron.schedule('*/5 * * * *', () => {
-    console.log('Ping at every 5th minute');
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${PORT}`);
 });
 
 var isShiftClosed = true;
