@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var cron = require('node-cron');
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
@@ -9,14 +8,10 @@ const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(TOKEN_AERO, { polling: true });
-
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${PORT}`);
-});
-
-cron.schedule('*/5 * * * *', () => {
-    console.log('Ping at every 5th minute');
 });
 
 var isShiftClosed = true;
@@ -34,36 +29,34 @@ bot.on('message', (msg) => {
         case '/start':
             category = 1;
             if (isShiftClosed) {
-                title = 'Открываю смену?';
+                title = 'Доброе утро. Открыть смену? \uD83D\uDE0A';
                 buttons.push('Открыть');
             }
             break;
         case 'Открыть':
         case 'В главное меню':
             if (msg.text === 'В главное меню') {
-                title = 'Текущий чек очищен';
+                title = 'Очистил предыдущий чек';
                 showOpenButtons(buttons);
             } else {
                 category = 2;
-                title = 'Смена открыта: ' + new Date().toLocaleString();
+                title = 'Смена открыта: ' + new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}).slice(0, -2) + '\nХороших продаж \uD83D\uDE09';
                 isShiftClosed = false;
                 showOpenButtons(buttons);
             }
-
             break;
         case 'Закрыть смену':
         case 'Да':
         case 'Нет':
             if (msg.text === 'Закрыть смену') {
-                title = 'Закрыть смену?'
+                title = 'Хочешь закрыть смену?'
                 for (var i = 0; i < botButtons.yesno.length; i++) {
                     buttons.push(botButtons.yesno[i]);
                 }
             }
-
             if (msg.text === 'Да') {
                 isShiftClosed = true;
-                title = 'Смена закрыта: \n' + new Date().toLocaleString() + '\nСтатистика за смену:';
+                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
                 let generalSum = 0;
                 for (let i = 0; i < totalReceipts.length; i++) {
                     title += "\n\nЧек №" + (i + 1) + ":\n";
@@ -75,23 +68,25 @@ bot.on('message', (msg) => {
                     title += "Итог по чеку: " + receiptSum;
                     generalSum += receiptSum;
                 }
-                title += "\n\nИтог за смену: " + generalSum;
+                title += "\n\nВыручка: " + generalSum;
                 isShiftClosed = true;
                 buttons.push("/start");
+                totalReceipts = [];
+                finalReceipt = [];
 
                 bot.sendMessage(521483514, title); // send reports to Maksim
             }
 
             if (msg.text === 'Нет') {
-                title = 'Отмена \nСмена не закрыта';
+                title = 'Смену не закрыл. Не переживай \uD83D\uDE22';
                 showOpenButtons(buttons);
             }
             break;
-        case 'Новый заказ':
+        case 'Новый чек':
         case 'В меню':
-            if (msg.text === "Новый заказ") {
+            if (msg.text === "Новый чек") {
                 finalReceipt = [];
-                title = 'Новый заказ';
+                title = 'Открыл новый чек. Добавляй в него побольше \uD83D\uDE05';
             } else {
                 title = showFinalReceipt(title);
                 category = 3;
@@ -108,13 +103,7 @@ bot.on('message', (msg) => {
                 finalReceipt.pop();
             }
 
-            title = "Итоговый чек:\n";
-            var sum = 0;
-            for (var i = 0; i < finalReceipt.length; i++) {
-                title += finalReceipt[i].name + " - " + finalReceipt[i].price + "\n";
-                sum += finalReceipt[i].price;
-            }
-            title += "\nИтог: " + sum;
+           title = showFinalReceipt(title);
             break;
         case 'Кофе':
             category = 4;
@@ -187,7 +176,7 @@ bot.on('message', (msg) => {
             showBackButtons(buttons);
             break;
         case 'Посмотреть статистику':
-            title = 'Статистика за смену:'
+            title = 'Посмотри сколько чеков \uD83D\uDE0D'
             let generalSum = 0;
             for (let i = 0; i < totalReceipts.length; i++) {
                 title += "\n\nЧек №" + (i + 1) + ":\n";
@@ -199,7 +188,7 @@ bot.on('message', (msg) => {
                 title += "Итог по чеку: " + receiptSum;
                 generalSum += receiptSum;
             }
-            title += "\n\nИтог за смену: " + generalSum;
+            title += "\n\nВыручка: " + generalSum;
             break;
         case 'Закрыть чек':
             if (finalReceipt.length === 0) {
@@ -208,7 +197,7 @@ bot.on('message', (msg) => {
             } else {
                 totalReceipts.push(finalReceipt);
                 finalReceipt = [];
-                title = "Новый заказ";
+                title = "Закрыл чек. Ты молодец \uD83D\uDE0E";
                 for (let i = 0; i < botButtons.open.length; i++) {
                     buttons.push(botButtons.open[i]);
                 }
@@ -236,13 +225,7 @@ bot.on('message', (msg) => {
             if (categoryElement !== undefined) {
                 finalReceipt.push(categoryElement);
 
-                title = "Итоговый чек:\n";
-                let finalSum = 0;
-                for (let i = 0; i < finalReceipt.length; i++) {
-                    title += finalReceipt[i].name + " - " + finalReceipt[i].price + "\n";
-                    finalSum += finalReceipt[i].price;
-                }
-                title += "\nИтог: " + finalSum;
+                title = showFinalReceipt(title);
             }
             break;
     }
@@ -284,10 +267,9 @@ function showFinalReceipt(title) {
     title = "Итоговый чек:\n";
     var sum = 0;
     for (var i = 0; i < finalReceipt.length; i++) {
-        title += finalReceipt[i].name + " - " + finalReceipt[i].price + "\n";
+        title += "\uD83D\uDD38" + finalReceipt[i].name + " - " + finalReceipt[i].price + "\n";
         sum += finalReceipt[i].price;
     }
-    title += "\nИтог: " + sum;
-    console.log(title);
+    title += "\nИтог: " + sum + "\nДавай ещё \uD83D\uDE08";
     return title;
 }
