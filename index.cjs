@@ -7,7 +7,7 @@ const TOKEN_TEST = '5185062504:AAE63XTQpe6Ib-DQ7bavI3zeThI8zTykEHM';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(TOKEN_TEST, { polling: true });
+const bot = new TelegramBot(TOKEN_AERO, { polling: true });
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
@@ -96,7 +96,7 @@ bot.on('message', (msg) => {
 
                 //1052353083 - My id
                 //521483514 - Maksim id
-                bot.sendMessage(1052353083, title); // send reports to Maksim
+                bot.sendMessage(521483514, title); // send reports to Maksim
             }
 
 
