@@ -3,11 +3,11 @@ var app = express();
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
-const TOKEN_TEST = '5359120855:AAEhADdpsIOoOV18tj4sNU4q3O6cZi45wbE';
+const TOKEN_TEST = '5185062504:AAE63XTQpe6Ib-DQ7bavI3zeThI8zTykEHM';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(TOKEN_AERO, { polling: true });
+const bot = new TelegramBot(TOKEN_TEST, { polling: true });
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
@@ -40,7 +40,7 @@ bot.on('message', (msg) => {
                 showOpenButtons(buttons);
             } else {
                 category = 2;
-                title = 'Смена открыта: ' + new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}).slice(0, -2) + '\nХороших продаж \uD83D\uDE09';
+                title = 'Смена открыта: ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nХороших продаж \uD83D\uDE09';
                 isShiftClosed = false;
                 showOpenButtons(buttons);
             }
@@ -56,7 +56,7 @@ bot.on('message', (msg) => {
             }
             if (msg.text === 'Да') {
                 isShiftClosed = true;
-                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
+                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
                 let generalSum = 0;
                 for (let i = 0; i < totalReceipts.length; i++) {
                     title += "\n\nЧек №" + (i + 1) + ":\n";
@@ -74,8 +74,12 @@ bot.on('message', (msg) => {
                 totalReceipts = [];
                 finalReceipt = [];
 
-                bot.sendMessage(521483514, title); // send reports to Maksim
+
+                //1052353083 - My id
+                //521483514 - Maksim id
+                bot.sendMessage(1052353083, title); // send reports to Maksim
             }
+
 
             if (msg.text === 'Нет') {
                 title = 'Смену не закрыл. Не переживай \uD83D\uDE22';
@@ -103,7 +107,7 @@ bot.on('message', (msg) => {
                 finalReceipt.pop();
             }
 
-           title = showFinalReceipt(title);
+            title = showFinalReceipt(title);
             break;
         case 'Кофе':
             category = 4;
