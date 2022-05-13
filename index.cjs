@@ -3,7 +3,7 @@ var app = express();
 var menu = require('./menu.cjs');
 var botButtons = require('./buttons.cjs');
 
-const TOKEN_TEST = '5359120855:AAEhADdpsIOoOV18tj4sNU4q3O6cZi45wbE';
+const TOKEN_TEST = '5185062504:AAE63XTQpe6Ib-DQ7bavI3zeThI8zTykEHM';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
@@ -17,7 +17,8 @@ app.listen(PORT, () => {
 var isShiftClosed = true;
 var category;
 var finalReceipt = [];
-var totalReceipts = [];
+var paymentInCash = [];
+var withoutCashPayment = [];
 
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
@@ -40,7 +41,7 @@ bot.on('message', (msg) => {
                 showOpenButtons(buttons);
             } else {
                 category = 2;
-                title = 'Смена открыта: ' + new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}).slice(0, -2) + '\nХороших продаж \uD83D\uDE09';
+                title = 'Смена открыта: ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nХороших продаж \uD83D\uDE09';
                 isShiftClosed = false;
                 showOpenButtons(buttons);
             }
@@ -56,26 +57,48 @@ bot.on('message', (msg) => {
             }
             if (msg.text === 'Да') {
                 isShiftClosed = true;
-                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
+                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
                 let generalSum = 0;
-                for (let i = 0; i < totalReceipts.length; i++) {
+                for (let i = 0; i < paymentInCash.length; i++) {
                     title += "\n\nЧек №" + (i + 1) + ":\n";
                     let receiptSum = 0;
-                    for (let j = 0; j < totalReceipts[i].length; j++) {
-                        title += totalReceipts[i][j].name + " - " + totalReceipts[i][j].price + "\n";
-                        receiptSum += totalReceipts[i][j].price;
+                    for (let j = 0; j < paymentInCash[i].length; j++) {
+                        title += paymentInCash[i][j].name + " - " + paymentInCash[i][j].price + "\n";
+                        receiptSum += paymentInCash[i][j].price;
                     }
                     title += "Итог по чеку: " + receiptSum;
                     generalSum += receiptSum;
                 }
-                title += "\n\nВыручка: " + generalSum;
+                title += "\n\nВыручка наличными: " + generalSum;
+                title += "\n\n-----------------------------------";
+
+                let generalSum1 = 0;
+                for (let i = 0; i < withoutCashPayment.length; i++) {
+                    title += "\n\nЧек №" + (i + 1) + ":\n";
+                    let receiptSum1 = 0;
+                    for (let j = 0; j < withoutCashPayment[i].length; j++) {
+                        title += withoutCashPayment[i][j].name + " - " + withoutCashPayment[i][j].price + "\n";
+                        receiptSum1 += withoutCashPayment[i][j].price;
+                    }
+                    title += "Итог по чеку: " + receiptSum1;
+                    generalSum1 += receiptSum1;
+                }
+                title += "\n\nВыручка по карте: " + generalSum1;
+                title += "\n\n-----------------------------------";
+                title += "\n\nОбщий итог: " + (generalSum + generalSum1);
+                
                 isShiftClosed = true;
                 buttons.push("/start");
-                totalReceipts = [];
+                paymentInCash = [];
+                withoutCashPayment = [];
                 finalReceipt = [];
 
+
+                //1052353083 - My id
+                //521483514 - Maksim id
                 bot.sendMessage(521483514, title); // send reports to Maksim
             }
+
 
             if (msg.text === 'Нет') {
                 title = 'Смену не закрыл. Не переживай \uD83D\uDE22';
@@ -103,7 +126,7 @@ bot.on('message', (msg) => {
                 finalReceipt.pop();
             }
 
-           title = showFinalReceipt(title);
+            title = showFinalReceipt(title);
             break;
         case 'Кофе':
             category = 4;
@@ -178,26 +201,61 @@ bot.on('message', (msg) => {
         case 'Посмотреть статистику':
             title = 'Посмотри сколько чеков \uD83D\uDE0D'
             let generalSum = 0;
-            for (let i = 0; i < totalReceipts.length; i++) {
+            let generalSum1 = 0;
+            
+            for (let i = 0; i < paymentInCash.length; i++) {
                 title += "\n\nЧек №" + (i + 1) + ":\n";
                 let receiptSum = 0;
-                for (let j = 0; j < totalReceipts[i].length; j++) {
-                    title += totalReceipts[i][j].name + " - " + totalReceipts[i][j].price + "\n";
-                    receiptSum += totalReceipts[i][j].price;
+                for (let j = 0; j < paymentInCash[i].length; j++) {
+                    title += paymentInCash[i][j].name + " - " + paymentInCash[i][j].price + "\n";
+                    receiptSum += paymentInCash[i][j].price;
                 }
                 title += "Итог по чеку: " + receiptSum;
                 generalSum += receiptSum;
             }
-            title += "\n\nВыручка: " + generalSum;
+            title += "\n\nВыручка наличными: " + generalSum;
+            
+            title += "\n\n-----------------------------------";
+            for (let i = 0; i < withoutCashPayment.length; i++) {
+                title += "\n\nЧек №" + (i + 1) + ":\n";
+                let receiptSum1 = 0;
+                for (let j = 0; j < withoutCashPayment[i].length; j++) {
+                    title += withoutCashPayment[i][j].name + " - " + withoutCashPayment[i][j].price + "\n";
+                    receiptSum1 += withoutCashPayment[i][j].price;
+                }
+                title += "Итог по чеку: " + receiptSum1;
+                generalSum1 += receiptSum1;
+            }
+            title += "\n\nВыручка по карте: " + generalSum1;
+            title += "\n\n-----------------------------------";
+            title += "\n\nОбщий итог: " + (generalSum + generalSum1);
             break;
         case 'Закрыть чек':
             if (finalReceipt.length === 0) {
                 title = 'Нельзя закрыть пустой чек!'
 
             } else {
-                totalReceipts.push(finalReceipt);
+                title = "Какой способ оплаты?";
+
+                buttons.push("Наличными", "Без. нал");
+            }    
+
+        break;
+        case "Наличными":
+        case "Без. нал":
+            if (msg.text === "Наличными") {
+                paymentInCash.push(finalReceipt);
                 finalReceipt = [];
-                title = "Закрыл чек. Ты молодец \uD83D\uDE0E";
+                title = "Закрыл чек. Наличными. Ты молодец \uD83D\uDE0E";
+
+                for (let i = 0; i < botButtons.open.length; i++) {
+                    buttons.push(botButtons.open[i]);
+                }
+            } if (msg.text === "Без. нал") {
+                withoutCashPayment.push(finalReceipt);
+                finalReceipt = [];
+                title = "Закрыл чек. По карте. Ты молодец \uD83D\uDE0E";
+                
                 for (let i = 0; i < botButtons.open.length; i++) {
                     buttons.push(botButtons.open[i]);
                 }
