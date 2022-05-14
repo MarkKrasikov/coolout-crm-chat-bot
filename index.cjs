@@ -14,11 +14,11 @@ const PORT = process.env.PORT || 3000;
 
 var http = require('http'); //importing http
 
-function startKeepAlive() {
+function startKeepAlive(PORT) {
     setInterval(function() {
         var options = {
             host: 'https://coolout-crm-aerodrom.herokuapp.com',
-            port: 80,
+            port: PORT,
             path: '/'
         };
         http.get(options, function(res) {
@@ -36,8 +36,8 @@ function startKeepAlive() {
 }
 
 app.listen(PORT, () => {
-    startKeepAlive();
     console.log(`Our app is running on port ${PORT}`);
+    startKeepAlive(PORT);
 });
 
 var isShiftClosed = true;
