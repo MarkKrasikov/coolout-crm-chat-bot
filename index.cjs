@@ -17,7 +17,7 @@ var http = require('http'); //importing http
 function startKeepAlive(PORT) {
     setInterval(function() {
         var options = {
-            host: 'https://coolout-crm-aerodrom.herokuapp.com',
+            host: 'coolout-crm-aerodrom.herokuapp.com',
             port: PORT,
             path: '/'
         };
