@@ -1,3 +1,5 @@
+process.env.NTBA_FIX_319 = 1;
+
 var express = require('express');
 var app = express();
 var menu = require('./menu.cjs');
@@ -7,10 +9,34 @@ const TOKEN_TEST = '5185062504:AAE63XTQpe6Ib-DQ7bavI3zeThI8zTykEHM';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(TOKEN_AERO, { polling: true });
+const bot = new TelegramBot(TOKEN_TEST, { polling: true });
 const PORT = process.env.PORT || 3000;
 
+var http = require('http'); //importing http
+
+function startKeepAlive() {
+    setInterval(function() {
+        var options = {
+            host: 'http://coolout-crm-aerodrom.herokuapp.com',
+            port: 80,
+            path: '/'
+        };
+        http.get(options, function(res) {
+            res.on('data', function(chunk) {
+                try {
+                    console.log("HEROKU RESPONSE: " + chunk);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        }).on('error', function(err) {
+            console.log("Error: " + err.message);
+        });
+    }, 20 * 60 * 1000);
+}
+
 app.listen(PORT, () => {
+    startKeepAlive();
     console.log(`Our app is running on port ${PORT}`);
 });
 
