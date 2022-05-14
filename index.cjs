@@ -32,7 +32,7 @@ function startKeepAlive(PORT) {
         }).on('error', function(err) {
             console.log("Error: " + err.message);
         });
-    }, 20 * 60 * 1000);
+    }, 1 * 60 * 1000);
 }
 
 app.listen(PORT, () => {
