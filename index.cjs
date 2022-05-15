@@ -88,7 +88,7 @@ bot.on('message', (msg) => {
                 // title += "\n\nВыручка по карте: " + generalSum1;
                 // title += "\n\n-----------------------------------";
                 // title += "\n\nОбщий итог: " + (generalSum + generalSum1);
-                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
+                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2);
                 isShiftClosed = true;
                 buttons.push("/start");
                 paymentInCash = [];
