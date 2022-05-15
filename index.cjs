@@ -262,7 +262,7 @@ bot.on('message', (msg) => {
 
             var result = "";
             result = showFinalReceipt(result);
-            bot.sendMessage(REPORTS_CHAT, title);
+            bot.sendMessage(REPORTS_CHAT, result);
 
             finalReceipt = [];
 
