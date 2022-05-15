@@ -11,7 +11,7 @@ const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(TOKEN_AERO, { polling: true });
 const PORT = process.env.PORT || 3000;
-const REPORTS_CHAT = '-1001789790513';
+const REPORTS_CHAT = '-1001753751836';
 
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${PORT}`);
