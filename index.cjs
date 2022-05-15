@@ -60,7 +60,6 @@ bot.on('message', (msg) => {
                 }
             }
             if (msg.text === 'Да') {
-                // title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
                 // let generalSum = 0;
                 // for (let i = 0; i < paymentInCash.length; i++) {
                 //     title += "\n\nЧек №" + (i + 1) + ":\n";
@@ -89,6 +88,7 @@ bot.on('message', (msg) => {
                 // title += "\n\nВыручка по карте: " + generalSum1;
                 // title += "\n\n-----------------------------------";
                 // title += "\n\nОбщий итог: " + (generalSum + generalSum1);
+                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
                 isShiftClosed = true;
                 buttons.push("/start");
                 paymentInCash = [];
