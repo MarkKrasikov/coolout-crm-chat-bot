@@ -11,33 +11,10 @@ const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(TOKEN_AERO, { polling: true });
 const PORT = process.env.PORT || 3000;
-
-var http = require('http'); //importing http
-
-function startKeepAlive(PORT) {
-    setInterval(function() {
-        var options = {
-            host: 'coolout-crm-aerodrom.herokuapp.com',
-            port: PORT,
-            path: '/'
-        };
-        http.get(options, function(res) {
-            res.on('data', function(chunk) {
-                try {
-                    console.log("HEROKU RESPONSE: " + chunk);
-                } catch (err) {
-                    console.log(err.message);
-                }
-            });
-        }).on('error', function(err) {
-            console.log("Error: " + err.message);
-        });
-    }, 1 * 60 * 1000);
-}
+const REPORTS_CHAT = '-1001789790513';
 
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${PORT}`);
-    startKeepAlive(PORT);
 });
 
 var isShiftClosed = true;
@@ -70,6 +47,7 @@ bot.on('message', (msg) => {
                 title = 'Смена открыта: ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nХороших продаж \uD83D\uDE09';
                 isShiftClosed = false;
                 showOpenButtons(buttons);
+                bot.sendMessage(REPORTS_CHAT, title);
             }
             break;
         case 'Закрыть смену':
@@ -119,10 +97,7 @@ bot.on('message', (msg) => {
                 withoutCashPayment = [];
                 finalReceipt = [];
 
-
-                //1052353083 - My id
-                //521483514 - Maksim id
-                bot.sendMessage(521483514, title); // send reports to Maksim
+                bot.sendMessage(REPORTS_CHAT, title);
             }
 
 
@@ -271,7 +246,6 @@ bot.on('message', (msg) => {
         case "Без. нал":
             if (msg.text === "Наличными") {
                 paymentInCash.push(finalReceipt);
-                finalReceipt = [];
                 title = "Закрыл чек. Наличными. Ты молодец \uD83D\uDE0E";
 
                 for (let i = 0; i < botButtons.open.length; i++) {
@@ -279,13 +253,18 @@ bot.on('message', (msg) => {
                 }
             } if (msg.text === "Без. нал") {
                 withoutCashPayment.push(finalReceipt);
-                finalReceipt = [];
                 title = "Закрыл чек. По карте. Ты молодец \uD83D\uDE0E";
                 
                 for (let i = 0; i < botButtons.open.length; i++) {
                     buttons.push(botButtons.open[i]);
                 }
             }
+
+            var result = "";
+            result = showFinalReceipt(result);
+            bot.sendMessage(REPORTS_CHAT, title);
+
+            finalReceipt = [];
 
             break;
         default:
