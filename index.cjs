@@ -90,7 +90,7 @@ bot.on('message', (msg) => {
                 title += "\n\nВыручка по карте: " + generalSum1;
                 title += "\n\n-----------------------------------";
                 title += "\n\nОбщий итог: " + (generalSum + generalSum1);
-                
+
                 isShiftClosed = true;
                 buttons.push("/start");
                 paymentInCash = [];
@@ -203,7 +203,7 @@ bot.on('message', (msg) => {
             title = 'Посмотри сколько чеков \uD83D\uDE0D'
             let generalSum = 0;
             let generalSum1 = 0;
-            
+
             for (let i = 0; i < paymentInCash.length; i++) {
                 title += "\n\nЧек №" + (i + 1) + ":\n";
                 let receiptSum = 0;
@@ -215,7 +215,7 @@ bot.on('message', (msg) => {
                 generalSum += receiptSum;
             }
             title += "\n\nВыручка наличными: " + generalSum;
-            
+
             title += "\n\n-----------------------------------";
             for (let i = 0; i < withoutCashPayment.length; i++) {
                 title += "\n\nЧек №" + (i + 1) + ":\n";
@@ -239,9 +239,9 @@ bot.on('message', (msg) => {
                 title = "Какой способ оплаты?";
 
                 buttons.push("Наличными", "Без. нал");
-            }    
+            }
 
-        break;
+            break;
         case "Наличными":
         case "Без. нал":
             if (msg.text === "Наличными") {
@@ -254,7 +254,7 @@ bot.on('message', (msg) => {
             } if (msg.text === "Без. нал") {
                 withoutCashPayment.push(finalReceipt);
                 title = "Закрыл чек. По карте. Ты молодец \uD83D\uDE0E";
-                
+
                 for (let i = 0; i < botButtons.open.length; i++) {
                     buttons.push(botButtons.open[i]);
                 }
