@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.cjs",
   "scripts": {
-    "start": "node index.cs"
+    "start": "node index.cjs"
   },
   "keywords": [],
   "author": "",
