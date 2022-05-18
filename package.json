@@ -6,7 +6,7 @@
   "main": "index.cjs",
   "scripts": {
     "start": "node index.cjs",
-    "build": "npm install -g"
+    "build": "npm install -g --output public"
   },
   "keywords": [],
   "author": "",
