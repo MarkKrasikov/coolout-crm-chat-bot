@@ -19,6 +19,7 @@ exports.listCoffee = [
     { name: 'Латте пшено', price: 5 },
     { name: 'Раф сырный', price: 5.5 },
     { name: 'Раф халва', price: 5 },
+    { name: "Раф малина-кокс", price: 5 },
     { name: 'Сироп', price: 0.5 },
     { name: 'Растительное', price: 2 },
     { name: 'Молочко', price: 0.5 },
