@@ -8,10 +8,12 @@ var botButtons = require('./buttons.cjs');
 const TOKEN_TEST = '5185062504:AAE63XTQpe6Ib-DQ7bavI3zeThI8zTykEHM';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 const REPORTS_CHAT_AERO = '-1001753751836';
-
+// Work chat - '-1001753751836'
+// Test chat - "-1001644627693"
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(TOKEN_TEST, { polling: true });
-const PORT = process.env.PORT || 3000;
+const bot = new TelegramBot(TOKEN_AERO, { polling: true });
+const PORT = process.env.PORT || 3001;
+
 
 var isShiftClosed = true;
 var category;
@@ -60,7 +62,6 @@ bot.on('message', (msg) => {
                 }
             }
             if (msg.text === 'Да') {
-<<<<<<< Updated upstream
                 // let generalSum = 0;
                 // for (let i = 0; i < paymentInCash.length; i++) {
                 //     title += "\n\nЧек №" + (i + 1) + ":\n";
@@ -90,7 +91,7 @@ bot.on('message', (msg) => {
                 // title += "\n\n-----------------------------------";
                 // title += "\n\nОбщий итог: " + (generalSum + generalSum1);
                 title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2);
-=======
+
                 isShiftClosed = true;
                 title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
                 let generalSum = 0;
@@ -121,21 +122,17 @@ bot.on('message', (msg) => {
                 title += "\n\nВыручка по карте: " + generalSum1;
                 title += "\n\n-----------------------------------";
                 title += "\n\nОбщий итог: " + (generalSum + generalSum1);
-
->>>>>>> Stashed changes
                 isShiftClosed = true;
                 buttons.push("/start");
                 paymentInCash = [];
                 withoutCashPayment = [];
                 finalReceipt = [];
-<<<<<<< Updated upstream
-=======
+
 
 
                 //1052353083 - My id
                 //521483514 - Maksim id
                 bot.sendMessage(-1001644627693, title); // send reports to Maksim
->>>>>>> Stashed changes
             }
 
 
@@ -157,6 +154,9 @@ bot.on('message', (msg) => {
             for (var i = 0; i < botButtons.newOrder.length; i++) {
                 buttons.push(botButtons.newOrder[i]);
             }
+            break;
+        case "Не спи, замерзнешь!)))":
+            title = "Не сплю, все норм)))";
             break;
         case 'Отмена':
             title = 'Отмена';
@@ -275,24 +275,13 @@ bot.on('message', (msg) => {
 
             } else {
                 title = "Какой способ оплаты?";
-
-<<<<<<< Updated upstream
-                buttons.push("Наличные", "Карта");
-            }
-
-            break;
-        case "Наличные":
-        case "Карта":
-            if (msg.text === "Наличные") {
-=======
-                buttons.push("Наличными", "Без. нал");
+                buttons.push("Наличными", "Карта");
             }
 
             break;
         case "Наличными":
-        case "Без. нал":
+        case "Карта":
             if (msg.text === "Наличными") {
->>>>>>> Stashed changes
                 paymentInCash.push(finalReceipt);
                 title = "Закрыл чек. Наличными. Ты молодец \uD83D\uDE0E";
                 for (let i = 0; i < botButtons.open.length; i++) {
@@ -301,10 +290,7 @@ bot.on('message', (msg) => {
             } else if (msg.text === "Карта") {
                 withoutCashPayment.push(finalReceipt);
                 title = "Закрыл чек. По карте. Ты молодец \uD83D\uDE0E";
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
                 for (let i = 0; i < botButtons.open.length; i++) {
                     buttons.push(botButtons.open[i]);
                 }

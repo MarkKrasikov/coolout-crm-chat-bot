@@ -5,7 +5,7 @@ exports.backOrderMenu = [
 
 exports.yesno = [
     'Да',
-    'Нет',
+    'Нет'
 ];
 
 exports.open = [
