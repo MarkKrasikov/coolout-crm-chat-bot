@@ -9,7 +9,7 @@ exports.listCoffee = [
     { name: 'Большой Раф', price: 4.8 },
     { name: 'Маленький Раф', price: 4.2 },
     { name: 'Маленький Мокко', price: 4.2 },
-    { name: 'Большой Мокко', price: 4.8},
+    { name: 'Большой Мокко', price: 4.8 },
     { name: 'Детский Капучино', price: 2.5 },
     { name: 'Капучино апельсин-корица', price: 4.8 },
     { name: 'Горячий бамбл', price: 5 },
@@ -98,7 +98,7 @@ exports.listFood = [
     { name: 'По-итальянски', price: 5.5 },
     { name: 'По-камчатски', price: 6 },
     { name: 'По-французски', price: 6 },
-    { name: 'Сладкий', price:  4.5},
+    { name: 'Сладкий', price: 4.5 },
 ];
 
 exports.listBakery = [
