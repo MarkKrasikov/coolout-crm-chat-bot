@@ -8,10 +8,12 @@ var botButtons = require('./buttons.cjs');
 const TOKEN_TEST = '5185062504:AAE63XTQpe6Ib-DQ7bavI3zeThI8zTykEHM';
 const TOKEN_AERO = '5396401897:AAHdIGqwHrjFp4K3LRPtFQxB4VaJa7bAsUk';
 const REPORTS_CHAT_AERO = '-1001753751836';
-
+// Work chat - '-1001753751836'
+// Test chat - "-1001644627693"
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(TOKEN_AERO, { polling: true });
 const PORT = process.env.PORT || 3001;
+
 
 var isShiftClosed = true;
 var category;
@@ -89,11 +91,48 @@ bot.on('message', (msg) => {
                 // title += "\n\n-----------------------------------";
                 // title += "\n\nОбщий итог: " + (generalSum + generalSum1);
                 title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2);
+
+                isShiftClosed = true;
+                title = 'Смена закрыта ' + new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }).slice(0, -2) + '\nПосмотри сколько чеков \uD83D\uDE0D';
+                let generalSum = 0;
+                for (let i = 0; i < paymentInCash.length; i++) {
+                    title += "\n\nЧек №" + (i + 1) + ":\n";
+                    let receiptSum = 0;
+                    for (let j = 0; j < paymentInCash[i].length; j++) {
+                        title += paymentInCash[i][j].name + " - " + paymentInCash[i][j].price + "\n";
+                        receiptSum += paymentInCash[i][j].price;
+                    }
+                    title += "Итог по чеку: " + receiptSum;
+                    generalSum += receiptSum;
+                }
+                title += "\n\nВыручка наличными: " + generalSum;
+                title += "\n\n-----------------------------------";
+
+                let generalSum1 = 0;
+                for (let i = 0; i < withoutCashPayment.length; i++) {
+                    title += "\n\nЧек №" + (i + 1) + ":\n";
+                    let receiptSum1 = 0;
+                    for (let j = 0; j < withoutCashPayment[i].length; j++) {
+                        title += withoutCashPayment[i][j].name + " - " + withoutCashPayment[i][j].price + "\n";
+                        receiptSum1 += withoutCashPayment[i][j].price;
+                    }
+                    title += "Итог по чеку: " + receiptSum1;
+                    generalSum1 += receiptSum1;
+                }
+                title += "\n\nВыручка по карте: " + generalSum1;
+                title += "\n\n-----------------------------------";
+                title += "\n\nОбщий итог: " + (generalSum + generalSum1);
                 isShiftClosed = true;
                 buttons.push("/start");
                 paymentInCash = [];
                 withoutCashPayment = [];
                 finalReceipt = [];
+
+
+
+                //1052353083 - My id
+                //521483514 - Maksim id
+                bot.sendMessage(-1001644627693, title); // send reports to Maksim
             }
 
 
@@ -115,6 +154,9 @@ bot.on('message', (msg) => {
             for (var i = 0; i < botButtons.newOrder.length; i++) {
                 buttons.push(botButtons.newOrder[i]);
             }
+            break;
+        case "Не спи, замерзнешь!)))":
+            title = "Не сплю, все норм)))";
             break;
         case 'Отмена':
             title = 'Отмена';
@@ -233,14 +275,13 @@ bot.on('message', (msg) => {
 
             } else {
                 title = "Какой способ оплаты?";
-
-                buttons.push("Наличные", "Карта");
+                buttons.push("Наличными", "Карта");
             }
 
             break;
-        case "Наличные":
+        case "Наличными":
         case "Карта":
-            if (msg.text === "Наличные") {
+            if (msg.text === "Наличными") {
                 paymentInCash.push(finalReceipt);
                 title = "Закрыл чек. Наличными. Ты молодец \uD83D\uDE0E";
                 for (let i = 0; i < botButtons.open.length; i++) {
@@ -249,6 +290,7 @@ bot.on('message', (msg) => {
             } else if (msg.text === "Карта") {
                 withoutCashPayment.push(finalReceipt);
                 title = "Закрыл чек. По карте. Ты молодец \uD83D\uDE0E";
+
                 for (let i = 0; i < botButtons.open.length; i++) {
                     buttons.push(botButtons.open[i]);
                 }
