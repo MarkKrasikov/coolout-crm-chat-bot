@@ -11,7 +11,7 @@ const REPORTS_CHAT_AERO = '-1001753751836';
 // Work chat - '-1001753751836'
 // Test chat - "-1001644627693"
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(TOKEN_TEST, { polling: true });
+const bot = new TelegramBot(TOKEN_AERO, { polling: true });
 const PORT = process.env.PORT || 3004;
 
 var isShiftClosed = true;
