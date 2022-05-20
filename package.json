@@ -18,8 +18,6 @@
     "index.js": "^0.0.3",
     "node-cron": "^3.0.0",
     "node-telegram-bot-api": "0.56.0",
-    "package-name": "^0.1.0",
-    "vercel": "^24.2.3",
-    "yarn": "^1.22.18"
+    "package-name": "^0.1.0"
   }
 }
