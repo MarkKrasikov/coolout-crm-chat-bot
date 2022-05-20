@@ -99,7 +99,7 @@ bot.on('message', (msg) => {
 
                 //1052353083 - My id
                 //521483514 - Maksim id
-                bot.sendMessage(-1001644627693, title);
+                bot.sendMessage(REPORTS_CHAT_AERO, title);
             }
             if (msg.text === 'Нет') {
                 title = 'Смену не закрыл. Не переживай \uD83D\uDE22';
