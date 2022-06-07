@@ -20,6 +20,8 @@ exports.listCoffee = [
     { name: 'Раф сырный', price: 5.5 },
     { name: 'Раф халва', price: 5 },
     { name: "Раф малина-кокс", price: 5 },
+    { name: "Раф мёд-корица", price: 5 },
+    { name: "Кофе по-турецки", price: 4 },
     { name: 'Сироп', price: 0.5 },
     { name: 'Растительное', price: 2 },
     { name: 'Молоко', price: 0.5 },
@@ -36,7 +38,7 @@ exports.listHotDrinks = [
     { name: 'Облепиховый отвар', price: 4.5 },
     { name: 'Чай классика', price: 3.5 },
     { name: 'Чай фирменный', price: 4 },
-    { name: 'Чай эксклюзивный', price: 4.5 },
+    { name: 'Чай эксклюзивный', price: 4.5 }
 ];
 
 exports.listColdDrinks = [
@@ -46,47 +48,42 @@ exports.listColdDrinks = [
     { name: 'Фреддо', price: 4 },
     { name: 'Бамбл', price: 5 },
     { name: 'Мазагран', price: 5 },
-    { name: 'Эспресо тоник', price: 5 },
+    { name: 'Эспрессо тоник', price: 5 },
     { name: 'Лимонад', price: 4 },
     { name: 'Молочный коктейль', price: 4 },
-    { name: 'Шоколадный коктейль', price: 4.5 },
+    { name: 'Шоколадный коктейль', price: 4 },
+    { name: 'Кофейный коктейль', price: 4.5 },
+    { name: 'Смузи', price: 4.5 },
     { name: 'Бонаква', price: 1.5 },
     { name: 'Газировка', price: 2 },
-    { name: 'Сок', price: 2 },
+    { name: 'Сок', price: 2 }
 ];
 
 exports.listDeserts = [
+    { name: 'Пончик', price: 3 },
+    { name: 'Эклер', price: 3.5 },
     { name: 'Макаронс', price: 4 },
-    { name: 'Картошка маленькая', price: 2 },
-    { name: 'Картошка большая', price: 4.5 },
+    { name: 'Тарталетка', price: 4 },
     { name: 'Захер', price: 4.5 },
     { name: 'Медовик', price: 4.5 },
+    { name: 'Картошка большая', price: 4.5 },
+    { name: 'Чизкейк с белым шоколадом', price: 4.5 },
     { name: 'Наполеон', price: 5 },
-    { name: 'Сникерс', price: 5 },
     { name: 'Красный бархат', price: 5 },
-    { name: 'Трайфл', price: 4.5 },
-    { name: 'Молочная девочка', price: 3.5 },
-    { name: 'Нутэлла', price: 3.5 },
-    { name: 'Олимпия', price: 3.5 },
-    { name: 'Пьяная вишня', price: 3.5 },
-    { name: 'Трюфелька', price: 3.5 },
-    { name: 'Пончик', price: 3 },
-    { name: 'Чизкейк классический', price: 4 },
-    { name: 'Чизкейк новый', price: 5 },
-    { name: 'Эклер', price: 3.5 },
-    { name: 'Малиновый пломбир', price: 5 }
+    { name: 'Муссовое пирожное', price: 5 },
+    { name: 'Трюфель', price: 5 }
 ];
 
 exports.listFood = [
     { name: 'Овсянка', price: 3.5 },
     { name: 'Яишенка', price: 4 },
-    { name: 'Сырники', price: 4.5 },
+    { name: 'Сырники', price: 5 },
     { name: 'По-американски', price: 5 },
     { name: 'По-итальянски', price: 5.5 },
     { name: 'По-камчатски', price: 6 },
     { name: 'По-французски', price: 6 },
     { name: 'Сладкий', price: 4.5 },
-    { name: 'Мороженое', price: 4 },
+    { name: 'Мороженое', price: 4 }
 ];
 
 exports.listBakery = [
@@ -94,22 +91,18 @@ exports.listBakery = [
     { name: 'Булочка овсяная', price: 2.8 },
     { name: 'Кленовый пекан', price: 3 },
     { name: 'Крендель', price: 2.8 },
-    { name: 'Круасан', price: 3.5 },
-    { name: 'Пончик', price: 2.8 },
-    { name: 'Розан с абрикосом', price: 3 },
-    { name: 'Розан с малиной', price: 3 },
+    { name: 'Круассан', price: 3.5 },
+    { name: 'Розан', price: 3 },
     { name: 'Твороженый твист', price: 3 }
 ];
 
 exports.listBars = [
-    { name: 'KIDAY', price: 1.5 },
+    { name: 'KIDDAY', price: 1.5 },
     { name: 'Nut&Go', price: 1.0 },
-    { name: "O'Zera вафля", price: 1 },
     { name: "O'Zera шоколадка", price: 1.5 },
     { name: 'Say No', price: 2 },
+    { name: 'Banana', price: 1 },
     { name: 'Зебра', price: 1 },
-    { name: 'Крокант', price: 0.5 },
     { name: 'Мачос', price: 1 },
-    { name: 'Предсказание', price: 1 },
-    { name: 'Ritter Sport', price: 1.5 },
+    { name: 'Крокант', price: 0.5 }
 ];
