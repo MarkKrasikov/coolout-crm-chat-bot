@@ -38,7 +38,8 @@ exports.listHotDrinks = [
     { name: 'Облепиховый отвар', price: 4.5 },
     { name: 'Чай классика', price: 3.5 },
     { name: 'Чай фирменный', price: 4 },
-    { name: 'Чай эксклюзивный', price: 4.5 }
+    { name: 'Чай эксклюзивный', price: 4.5 },
+    { name: 'Айс Чай', price: 5.0 },
 ];
 
 exports.listColdDrinks = [
@@ -71,7 +72,9 @@ exports.listDeserts = [
     { name: 'Наполеон', price: 5 },
     { name: 'Красный бархат', price: 5 },
     { name: 'Муссовое пирожное', price: 5 },
-    { name: 'Трюфель', price: 5 }
+    { name: 'Трюфель', price: 5 },
+    { name: 'Малина мусс', price: 5 },
+    { name: 'Эстерхази', price: 5 }
 ];
 
 exports.listFood = [
