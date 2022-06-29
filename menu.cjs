@@ -50,7 +50,7 @@ exports.listColdDrinks = [
     { name: 'Бамбл', price: 5 },
     { name: 'Мазагран', price: 5 },
     { name: 'Эспрессо тоник', price: 5 },
-    { name: 'Лимонад', price: 4 },
+    { name: 'Лимонад', price: 4.5 },
     { name: 'Молочный коктейль', price: 4 },
     { name: 'Шоколадный коктейль', price: 4 },
     { name: 'Кофейный коктейль', price: 4.5 },
@@ -87,7 +87,9 @@ exports.listFood = [
     { name: 'По-камчатски', price: 6 },
     { name: 'По-французски', price: 6 },
     { name: 'Сладкий', price: 4.5 },
-    { name: 'Мороженое', price: 4 }
+    { name: 'Мороженое', price: 4 },
+    { name: 'С наггетсом', price: 6.0 },
+    { name: 'С рыбой', price: 6.5 }
 ];
 
 exports.listBakery = [
