@@ -61,13 +61,15 @@ exports.listColdDrinks = [
 ];
 
 exports.listDeserts = [
+    { name: 'Картошка', price: 2 },
     { name: 'Пончик', price: 3 },
+    { name: 'Маффин', price: 3 },
     { name: 'Эклер', price: 3.5 },
     { name: 'Макаронс', price: 4 },
-    { name: 'Тарталетка', price: 4 },
+    { name: 'Трубочка со сгущёнкой', price: 4 },
+    { name: 'Тарталетка', price: 4.5 },
     { name: 'Захер', price: 4.5 },
     { name: 'Медовик', price: 4.5 },
-    { name: 'Картошка большая', price: 4.5 },
     { name: 'Чизкейк с белым шоколадом', price: 4.5 },
     { name: 'Наполеон', price: 5 },
     { name: 'Красный бархат', price: 5 },
@@ -89,7 +91,17 @@ exports.listFood = [
     { name: 'Сладкий', price: 4.5 },
     { name: 'Мороженое', price: 4 },
     { name: 'С наггетсом', price: 6.0 },
-    { name: 'С рыбой', price: 6.5 }
+    { name: 'С рыбой', price: 6.5 },
+    { name: 'Б: с ветчиной и сыром', price: 3.5 },
+    { name: 'Б: с курицей, салатом', price: 4.5 },
+    { name: 'Б: с курицей, ананасами', price: 5.0 },
+    { name: 'Б: с форелью и огурчиками', price: 5.5 },
+    { name: 'Б: с форелью, моцареллой', price: 6.0 },
+    { name: 'Б: с тунцом и руколой', price: 5.5 },
+    { name: 'Б: с тунцом, моцареллой', price: 6.0 },
+    { name: 'Б: с моцареллой, томатами', price: 4.0 },
+    { name: 'Б: с моцареллой и ананасами', price: 4.5 },
+    { name: 'Б: сладкий', price: 3.5 }
 ];
 
 exports.listBakery = [
