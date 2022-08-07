@@ -111,8 +111,7 @@ exports.listBakery = [
     { name: 'Кленовый пекан', price: 3 },
     { name: 'Крендель', price: 2.8 },
     { name: 'Круассан', price: 3.5 },
-    { name: 'Розан', price: 3 },
-    { name: 'Твороженый твист', price: 3 }
+    { name: 'Розан', price: 3 }
 ];
 
 exports.listBars = [
