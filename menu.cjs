@@ -120,7 +120,10 @@ exports.listBars = [
     { name: "O'Zera шоколадка", price: 1.5 },
     { name: 'Say No', price: 2 },
     { name: 'Banana', price: 1 },
+    { name: 'Cornline', price: 1 },
     { name: 'Зебра', price: 1 },
     { name: 'Мачос', price: 1 },
-    { name: 'Крокант', price: 0.5 }
+    { name: 'Крокант', price: 0.5 },
+    { name: 'Протеиновый', price: 2 },
+    { name: 'Петродиет', price: 1.5 }
 ];
